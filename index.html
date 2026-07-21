@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <title>Toastmaster</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Toastmaster">
-<meta name="theme-color" content="#4E1420">
+<meta name="theme-color" content="#FAF6EF">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%234E1420'/%3E%3Cpath d='M62 40 C62 28 118 28 118 40 C118 68 96 88 90 88 C84 88 62 68 62 40 Z' fill='none' stroke='%23D9B25C' stroke-width='6'/%3E%3Cline x1='90' y1='88' x2='90' y2='128' stroke='%23D9B25C' stroke-width='6'/%3E%3Cline x1='66' y1='140' x2='114' y2='140' stroke='%23D9B25C' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M70 46 C70 55 82 68 90 74' fill='none' stroke='%23D9B25C' stroke-width='5' stroke-linecap='round' opacity='0.6'/%3E%3C/svg%3E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%234E1420'/%3E%3Cpath d='M62 40 C62 28 118 28 118 40 C118 68 96 88 90 88 C84 88 62 68 62 40 Z' fill='none' stroke='%23D9B25C' stroke-width='6'/%3E%3Cline x1='90' y1='88' x2='90' y2='128' stroke='%23D9B25C' stroke-width='6'/%3E%3Cline x1='66' y1='140' x2='114' y2='140' stroke='%23D9B25C' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -201,6 +201,21 @@
   .btn-icon{background:none; border:none; padding:6px; color:var(--ink-soft); cursor:pointer;}
   .btn-icon:disabled{opacity:.25;}
 
+  details.settings-card{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    margin-bottom:14px; overflow:hidden;
+  }
+  details.settings-card summary{
+    list-style:none; cursor:pointer;
+    padding:13px 16px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    font-weight:600; font-size:14px; color:var(--wine-deep);
+  }
+  details.settings-card summary::-webkit-details-marker{display:none;}
+  details.settings-card summary .chev{color:var(--brass); transition:transform .2s ease; flex:none;}
+  details.settings-card[open] summary .chev{transform:rotate(90deg);}
+  .settings-body{padding:0 16px 16px;}
+
   .summary-strip{
     display:flex; justify-content:space-between; gap:10px;
     background:var(--wine-deep); color:var(--ivory);
@@ -275,18 +290,6 @@
 </head>
 <body>
 <div id="app">
-
-  <header class="topbar">
-    <div class="eyebrow">Toastmaster</div>
-    <h1 id="headerTitle">Aftenens program</h1>
-    <div class="event-fields">
-      <input id="fEventNames" type="text" placeholder="Brudeparrets navne">
-      <div class="event-row">
-        <input id="fEventDate" type="date">
-        <input id="fEventStart" type="time">
-      </div>
-    </div>
-  </header>
 
   <main>
 
@@ -377,6 +380,29 @@
     <!-- ===== PLANNER ===== -->
     <section id="tab-plan" class="tab-panel">
       <div class="section-title"><h2>Aftenens program</h2><div class="rule"></div></div>
+
+      <details class="settings-card">
+        <summary>
+          <span id="eventSummaryText">Brudepar &amp; starttidspunkt</span>
+          <span class="chev">›</span>
+        </summary>
+        <div class="settings-body">
+          <div class="field">
+            <label for="fEventNames">Brudeparrets navne</label>
+            <input id="fEventNames" type="text" placeholder="Fx Anna &amp; Peter">
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="fEventDate">Dato</label>
+              <input id="fEventDate" type="date">
+            </div>
+            <div class="field">
+              <label for="fEventStart">Starttid for taler</label>
+              <input id="fEventStart" type="time">
+            </div>
+          </div>
+        </div>
+      </details>
 
       <div class="summary-strip">
         <div class="stat"><b id="statCount">0</b><span>Taler</span></div>
@@ -539,8 +565,9 @@
   fEventStart.addEventListener("change", function(){ state.event.start = fEventStart.value; saveState(); renderPlanner(); });
 
   function updateHeaderTitle(){
-    var t = document.getElementById("headerTitle");
-    t.textContent = state.event.names ? state.event.names : "Aftenens program";
+    var t = document.getElementById("eventSummaryText");
+    if(t) t.textContent = state.event.names ? state.event.names : "Brudepar & starttidspunkt";
+    document.title = state.event.names ? state.event.names + " – Toastmaster" : "Toastmaster";
   }
   updateHeaderTitle();
 
