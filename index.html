@@ -31,6 +31,7 @@
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
   html,body{margin:0;padding:0;height:100%;background:var(--wine-deep);}
+  html.lock-scroll,body.lock-scroll{overflow:hidden; touch-action:none; overscroll-behavior:none;}
   body{
     font-family:'Inter',-apple-system,sans-serif;
     color:var(--ink);
@@ -247,35 +248,45 @@
   }
 
   /* ---------- Timer ---------- */
-  .timer-select{margin-bottom:16px;}
+  .timer-select{margin-bottom:12px;}
   select{
     width:100%; border:1px solid var(--line); border-radius:9px;
     padding:11px 12px; font-family:'Inter',sans-serif; font-size:14.5px;
     background:var(--ivory); color:var(--ink);
   }
+  .alert-settings{
+    display:flex; flex-direction:column; gap:6px;
+    margin-bottom:10px;
+  }
+  .toggle-row{
+    display:flex; align-items:center; gap:8px;
+    font-size:13px; color:var(--ink-soft);
+  }
+  .toggle-row input{ width:16px; height:16px; accent-color:var(--wine); flex:none; }
   .timer-stage{
     display:flex; flex-direction:column; align-items:center;
-    padding:20px 10px 6px;
+    padding:10px 10px 4px;
   }
-  .glass-wrap{position:relative; width:150px; height:190px;}
+  .glass-wrap{position:relative; width:118px; height:150px;}
   .glass-wrap svg{width:100%; height:100%; display:block;}
   .timer-readout{
     font-family:'Fraunces',serif; font-weight:600;
     font-variant-numeric: tabular-nums;
-    font-size:44px; color:var(--wine-deep); margin-top:6px;
+    font-size:38px; color:var(--wine-deep); margin-top:2px;
     letter-spacing:-0.01em;
   }
   .timer-readout.overtime{color:var(--danger);}
   .timer-label{font-size:12.5px; color:var(--ink-soft); text-align:center; margin-top:2px;}
-  .timer-buttons{display:flex; gap:10px; width:100%; margin-top:18px;}
+  .timer-label.overtime{color:var(--danger); font-weight:600;}
+  .timer-buttons{display:flex; gap:10px; width:100%; margin-top:12px;}
   .timer-buttons .btn{flex:1;}
   .btn-start{background:var(--sage); color:#fff;}
   .btn-pause{background:var(--brass); color:#fff;}
   .btn-reset{background:none; border:1px solid var(--line); color:var(--ink-soft);}
   .next-link{
-    display:block; text-align:center; margin-top:14px; font-size:13px;
+    display:block; text-align:center; margin-top:8px; font-size:13px;
     color:var(--wine); text-decoration:underline; background:none; border:none;
-    width:100%; padding:8px; cursor:pointer; font-family:'Inter',sans-serif;
+    width:100%; padding:6px; cursor:pointer; font-family:'Inter',sans-serif;
   }
 
   .divider{
@@ -293,93 +304,9 @@
 
   <main>
 
-    <!-- ===== GUIDE ===== -->
-    <section id="tab-guide" class="tab-panel active">
-      <div class="section-title"><h2>Guide til at være toastmaster</h2><div class="rule"></div></div>
-
-      <details class="guide-item" open>
-        <summary><span class="num">1</span>Hvad laver en toastmaster?<span class="chev">›</span></summary>
-        <div class="guide-body">
-          <p>En toastmaster (eller ceremonimester) er den, der binder aftenens fest sammen. Du skal ikke selv holde en tale — din opgave er at styre programmet: byde velkommen, introducere talerne i den rigtige rækkefølge, holde tiden, og sørge for at overgange mellem retter, taler og lege glider let.</p>
-          <p>Du er brudeparrets højre hånd hele aftenen: rolig, overblik og et smil — også når noget går anderledes end planlagt.</p>
-        </div>
-      </details>
-
-      <details class="guide-item">
-        <summary><span class="num">2</span>Inden brylluppet<span class="chev">›</span></summary>
-        <div class="guide-body">
-          <ul>
-            <li>Aftal med brudeparret hvem der skal tale, i hvilken rækkefølge, og cirka hvor lang tid hver taler forventer at bruge.</li>
-            <li>Kontakt hver taler i god tid, og bed dem melde tilbage med et estimat på taletiden.</li>
-            <li>Lav en køreplan sammen med festlokalet: hvornår serveres hvilken ret, og hvornår er der plads til taler mellem retterne.</li>
-            <li>Tjek AV-udstyret: er der mikrofon, og virker den? Hvor står den?</li>
-            <li>Skriv dine egne overgangs-replikker ned — det er lettere at være rolig, når du har noget at støtte dig til.</li>
-            <li>Læg hele køreplanen ind under <b>Program</b>-fanen i denne app, så du har den samlet ét sted på telefonen.</li>
-          </ul>
-        </div>
-      </details>
-
-      <details class="guide-item">
-        <summary><span class="num">3</span>Din rolle under festen<span class="chev">›</span></summary>
-        <div class="guide-body">
-          <ul>
-            <li>Byd velkommen og fortæl kort, hvordan aftenen kommer til at forløbe.</li>
-            <li>Introducer hver taler roligt og tydeligt, gerne med et par ord om, hvem personen er for brudeparret.</li>
-            <li>Hold øje med tiden uden at det bliver stressende for talerne — brug <b>Timer</b>-fanen.</li>
-            <li>Giv et tegn til køkken eller tjenere, når en tale er slut, så maden kan gå videre.</li>
-            <li>Vær klar til at improvisere. En aften forløber sjældent 100 % efter planen, og det er helt fint.</li>
-          </ul>
-        </div>
-      </details>
-
-      <details class="guide-item">
-        <summary><span class="num">4</span>Sådan introducerer du en taler<span class="chev">›</span></summary>
-        <div class="guide-body">
-          <p>Nogle sætninger du kan bruge og tilpasse:</p>
-          <span class="phrase">"Så er tiden kommet til aftenens næste tale. Jeg vil gerne give ordet til [navn], som er [relation] til [brud/gom]. Værsgo, [navn]."</span>
-          <span class="phrase">"Tak for de smukke ord, [navn] — skål for brudeparret!"</span>
-          <span class="phrase">"Vi fortsætter aftenens program. Næste taler er [navn]."</span>
-        </div>
-      </details>
-
-      <details class="guide-item">
-        <summary><span class="num">5</span>Hold styr på tiden<span class="chev">›</span></summary>
-        <div class="guide-body">
-          <ul>
-            <li>Aftal gerne et diskret tegn med talerne på forhånd, fx at du rejser dig eller lægger en hånd på bordet, hvis de nærmer sig tidsgrænsen.</li>
-            <li>Brug Timer-fanen til at sætte en nedtælling for hver taler, så du har et roligt overblik uden at kigge på uret hele tiden.</li>
-            <li>Byg lidt luft ind i køreplanen. Taler løber ofte lidt over, og det er helt normalt.</li>
-          </ul>
-        </div>
-      </details>
-
-      <details class="guide-item">
-        <summary><span class="num">6</span>Håndter det uventede<span class="chev">›</span></summary>
-        <div class="guide-body">
-          <ul>
-            <li><b>Mikrofonen driller:</b> hav en plan B — kan taleren tale højt og tydeligt uden?</li>
-            <li><b>En taler går i stå eller bliver nervøs:</b> giv dem tid, og vær klar med et roligt "skål for det", hvis det er nødvendigt.</li>
-            <li><b>Programmet skrider:</b> det er helt fint at ryste posen. Prioriter stemningen frem for at ramme klokkeslættet på minuttet.</li>
-            <li><b>Højt humør blandt gæsterne:</b> tag det med et smil, men styr trygt videre, når det er tid til næste punkt.</li>
-          </ul>
-        </div>
-      </details>
-
-      <details class="guide-item">
-        <summary><span class="num">7</span>Afrunding af den formelle del<span class="chev">›</span></summary>
-        <div class="guide-body">
-          <ul>
-            <li>Rund den formelle del af med en kort opsummering eller en tak til brudeparret.</li>
-            <li>Giv besked til DJ eller musikansvarlig, så overgangen til fx dans eller kagemand er tydelig.</li>
-            <li>Nyd resten af festen — dit arbejde som toastmaster er gjort!</li>
-          </ul>
-        </div>
-      </details>
-    </section>
-
     <!-- ===== PLANNER ===== -->
-    <section id="tab-plan" class="tab-panel">
-      <div class="section-title"><h2>Aftenens program</h2><div class="rule"></div></div>
+    <section id="tab-plan" class="tab-panel active">
+      <div class="section-title"><h2 id="planTitle">Aftenens program</h2><div class="rule"></div></div>
 
       <details class="settings-card">
         <summary>
@@ -388,7 +315,7 @@
         </summary>
         <div class="settings-body">
           <div class="field">
-            <label for="fEventNames">Brudeparrets navne</label>
+            <label for="fEventNames" id="namesFieldLabel">Brudeparrets navne</label>
             <input id="fEventNames" type="text" placeholder="Fx Anna &amp; Peter">
           </div>
           <div class="row2">
@@ -397,7 +324,7 @@
               <input id="fEventDate" type="date">
             </div>
             <div class="field">
-              <label for="fEventStart">Starttid for taler</label>
+              <label for="fEventStart">Starttidspunkt</label>
               <input id="fEventStart" type="time">
             </div>
           </div>
@@ -405,20 +332,20 @@
       </details>
 
       <div class="summary-strip">
-        <div class="stat"><b id="statCount">0</b><span>Taler</span></div>
+        <div class="stat"><b id="statCount">0</b><span id="statLabel">Taler</span></div>
         <div class="stat"><b id="statMinutes">0</b><span>Min. i alt</span></div>
         <div class="stat"><b id="statEnd">–</b><span>Forventet slut</span></div>
       </div>
 
       <div class="card">
-        <h3>Tilføj taler til programmet</h3>
+        <h3 id="addFormTitle">Tilføj taler til programmet</h3>
         <div class="field">
-          <label for="fName">Navn</label>
+          <label for="fName" id="nameFieldLabel">Navn</label>
           <input id="fName" type="text" placeholder="Fx Maria Jensen">
         </div>
         <div class="row2">
           <div class="field">
-            <label for="fRelation">Relation</label>
+            <label for="fRelation" id="relationFieldLabel">Relation</label>
             <input id="fRelation" type="text" placeholder="Fx forlover, brudens far">
           </div>
           <div class="field" style="max-width:110px;">
@@ -441,8 +368,13 @@
       <div class="section-title"><h2>Timer</h2><div class="rule"></div></div>
 
       <div class="timer-select">
-        <label style="display:block; font-size:11px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:5px;">Vælg taler</label>
+        <label id="timerSelectLabel" style="display:block; font-size:11px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:5px;">Vælg taler</label>
         <select id="timerSelect"></select>
+      </div>
+
+      <div class="alert-settings">
+        <label class="toggle-row"><input type="checkbox" id="fAlertSound"> <span>🔊 Lyd ved tidsudløb</span></label>
+        <label class="toggle-row"><input type="checkbox" id="fAlertVibration"> <span>📳 Vibration ved tidsudløb</span></label>
       </div>
 
       <div class="timer-stage">
@@ -478,20 +410,32 @@
       </div>
     </section>
 
+    <!-- ===== GUIDES ===== -->
+    <section id="tab-guide" class="tab-panel">
+      <div class="section-title"><h2>Guides</h2><div class="rule"></div></div>
+
+      <div class="field" style="margin-bottom:18px;">
+        <label for="fEventType">Vælg type arrangement</label>
+        <select id="fEventType"></select>
+      </div>
+
+      <div id="guideAccordionContainer"></div>
+    </section>
+
   </main>
 
   <nav class="tabbar">
-    <button data-tab="guide" class="active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H16a2 2 0 0 1 2 2v14l-2-1.3-2 1.3-2-1.3-2 1.3-2-1.3-2 1.3V5.5Z"/><line x1="7.5" y1="8" x2="14.5" y2="8"/><line x1="7.5" y1="11" x2="14.5" y2="11"/></svg>
-      Guide
-    </button>
-    <button data-tab="plan">
+    <button data-tab="plan" class="active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="17" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
       Program
     </button>
     <button data-tab="timer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="8"/><line x1="12" y1="13" x2="12" y2="8.5"/><line x1="12" y1="13" x2="15" y2="14.5"/><line x1="9" y1="2" x2="15" y2="2"/></svg>
       Timer
+    </button>
+    <button data-tab="guide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H16a2 2 0 0 1 2 2v14l-2-1.3-2 1.3-2-1.3-2 1.3-2-1.3-2 1.3V5.5Z"/><line x1="7.5" y1="8" x2="14.5" y2="8"/><line x1="7.5" y1="11" x2="14.5" y2="11"/></svg>
+      Guides
     </button>
   </nav>
 
@@ -517,7 +461,9 @@
   var STATE_KEY = "toastmaster-state-v1";
   var defaultState = {
     event: { names:"", date:"", start:"18:00" },
-    speeches: []
+    speeches: [],
+    eventType: "bryllup",
+    settings: { sound:true, vibration:true }
   };
   var state = loadState();
 
@@ -528,6 +474,8 @@
       var parsed = JSON.parse(raw);
       if(!parsed.event) parsed.event = defaultState.event;
       if(!parsed.speeches) parsed.speeches = [];
+      if(!parsed.eventType) parsed.eventType = "bryllup";
+      if(!parsed.settings) parsed.settings = { sound:true, vibration:true };
       return parsed;
     } catch(e){ return JSON.parse(JSON.stringify(defaultState)); }
   }
@@ -535,21 +483,173 @@
     storage.set(STATE_KEY, JSON.stringify(state));
   }
 
+  /* ---------------- event type configuration ---------------- */
+  var EVENT_TYPES = {
+
+    bryllup: {
+      label: "Bryllup",
+      programTitle: "Aftenens program",
+      namesLabel: "Brudeparrets navne",
+      namesPlaceholder: "Fx Anna & Peter",
+      namesSummaryDefault: "Brudepar & starttidspunkt",
+      statLabel: "Taler",
+      addFormTitle: "Tilføj taler til programmet",
+      addButtonText: "Tilføj til programmet",
+      nameLabel: "Navn",
+      namePlaceholder: "Fx Maria Jensen",
+      relationLabel: "Relation",
+      relationPlaceholder: "Fx forlover, brudens far",
+      notesPlaceholder: "Fx: skal bruge projektor, eller: kommer efter hovedretten",
+      emptyHint: "Programmet er tomt endnu.<br>Tilføj den første taler ovenfor.",
+      timerSelectLabel: "Vælg taler",
+      nextButtonText: "Gå til næste taler i programmet →",
+      guideSections: [
+        { title:"Hvad laver en toastmaster?", body:
+          "<p>En toastmaster (eller ceremonimester) er den, der binder aftenens fest sammen. Du skal ikke selv holde en tale — din opgave er at styre programmet: byde velkommen, introducere talerne i den rigtige rækkefølge, holde tiden, og sørge for at overgange mellem retter, taler og lege glider let.</p><p>Du er brudeparrets højre hånd hele aftenen: rolig, overblik og et smil — også når noget går anderledes end planlagt.</p>" },
+        { title:"Inden brylluppet", body:
+          "<ul><li>Aftal med brudeparret hvem der skal tale, i hvilken rækkefølge, og cirka hvor lang tid hver taler forventer at bruge.</li><li>Kontakt hver taler i god tid, og bed dem melde tilbage med et estimat på taletiden.</li><li>Lav en køreplan sammen med festlokalet: hvornår serveres hvilken ret, og hvornår er der plads til taler mellem retterne.</li><li>Tjek AV-udstyret: er der mikrofon, og virker den? Hvor står den?</li><li>Skriv dine egne overgangs-replikker ned — det er lettere at være rolig, når du har noget at støtte dig til.</li><li>Læg hele køreplanen ind under <b>Program</b>-fanen i denne app, så du har den samlet ét sted på telefonen.</li></ul>" },
+        { title:"Din rolle under festen", body:
+          "<ul><li>Byd velkommen og fortæl kort, hvordan aftenen kommer til at forløbe.</li><li>Introducer hver taler roligt og tydeligt, gerne med et par ord om, hvem personen er for brudeparret.</li><li>Hold øje med tiden uden at det bliver stressende for talerne — brug <b>Timer</b>-fanen.</li><li>Giv et tegn til køkken eller tjenere, når en tale er slut, så maden kan gå videre.</li><li>Vær klar til at improvisere. En aften forløber sjældent 100 % efter planen, og det er helt fint.</li></ul>" },
+        { title:"Sådan introducerer du en taler", body:
+          "<p>Nogle sætninger du kan bruge og tilpasse:</p><span class=\"phrase\">\"Så er tiden kommet til aftenens næste tale. Jeg vil gerne give ordet til [navn], som er [relation] til [brud/gom]. Værsgo, [navn].\"</span><span class=\"phrase\">\"Tak for de smukke ord, [navn] — skål for brudeparret!\"</span><span class=\"phrase\">\"Vi fortsætter aftenens program. Næste taler er [navn].\"</span>" },
+        { title:"Hold styr på tiden", body:
+          "<ul><li>Aftal gerne et diskret tegn med talerne på forhånd, fx at du rejser dig eller lægger en hånd på bordet, hvis de nærmer sig tidsgrænsen.</li><li>Brug Timer-fanen til at sætte en nedtælling for hver taler, så du har et roligt overblik uden at kigge på uret hele tiden.</li><li>Byg lidt luft ind i køreplanen. Taler løber ofte lidt over, og det er helt normalt.</li></ul>" },
+        { title:"Håndter det uventede", body:
+          "<ul><li><b>Mikrofonen driller:</b> hav en plan B — kan taleren tale højt og tydeligt uden?</li><li><b>En taler går i stå eller bliver nervøs:</b> giv dem tid, og vær klar med et roligt \"skål for det\", hvis det er nødvendigt.</li><li><b>Programmet skrider:</b> det er helt fint at ryste posen. Prioriter stemningen frem for at ramme klokkeslættet på minuttet.</li><li><b>Højt humør blandt gæsterne:</b> tag det med et smil, men styr trygt videre, når det er tid til næste punkt.</li></ul>" },
+        { title:"Afrunding af den formelle del", body:
+          "<ul><li>Rund den formelle del af med en kort opsummering eller en tak til brudeparret.</li><li>Giv besked til DJ eller musikansvarlig, så overgangen til fx dans eller kagemand er tydelig.</li><li>Nyd resten af festen — dit arbejde som toastmaster er gjort!</li></ul>" }
+      ]
+    },
+
+    grillfest: {
+      label: "Grillfest",
+      programTitle: "Aftenens menu-program",
+      namesLabel: "Værter",
+      namesPlaceholder: "Fx Anna & Peter",
+      namesSummaryDefault: "Værter & starttidspunkt",
+      statLabel: "Retter",
+      addFormTitle: "Tilføj ret til programmet",
+      addButtonText: "Tilføj til programmet",
+      nameLabel: "Ret",
+      namePlaceholder: "Fx Grillspyd med chimichurri",
+      relationLabel: "Ansvarlig",
+      relationPlaceholder: "Fx grillmester Peter",
+      notesPlaceholder: "Fx: skal have 20 min på grillen, eller: indeholder nødder",
+      emptyHint: "Menu-programmet er tomt endnu.<br>Tilføj den første ret ovenfor.",
+      timerSelectLabel: "Vælg ret",
+      nextButtonText: "Gå til næste ret i programmet →",
+      guideSections: [
+        { title:"Hvad laver værten for maden?", body:
+          "<p>Ved en grillfest handler din rolle mindre om taler og mere om at holde styr på, hvornår hver ret er klar, præsentere maden for gæsterne, og sørge for at tempoet passer med resten af programmet — skåltaler, lege eller kagen.</p><p>Du er den, gæsterne kan se hen til, når de er i tvivl om, hvad der sker som det næste.</p>" },
+        { title:"Inden festen", body:
+          "<ul><li>Planlæg menuen sammen med værtsparret, og aftal cirka hvornår hver ret skal på grillen og på bordet.</li><li>Lav en tidsplan, så retterne ikke kolliderer med taler, lege eller kagen.</li><li>Tjek grillen, kulet/gassen og pladsen i køleskabet i god tid.</li><li>Skriv et par ord om hver ret ned — fx hvem der har lavet den, eller om den er allergivenlig.</li><li>Læg hele menu-programmet ind under <b>Program</b>-fanen, så du har det samlet på telefonen.</li></ul>" },
+        { title:"Din rolle under festen", body:
+          "<ul><li>Byd velkommen og fortæl kort, hvad aftenen byder på.</li><li>Præsenter hver ret, når den sættes frem — gerne med et par ord om, hvad den indeholder.</li><li>Hold øje med grillen ift. programmet, så maden er klar, når der er behov for den.</li><li>Brug <b>Timer</b>-fanen til at holde styr på, hvor lang tid hver ret skal have.</li><li>Giv gæsterne besked, når der kommer noget nyt på bordet.</li></ul>" },
+        { title:"Sådan præsenterer du en ret", body:
+          "<p>Nogle sætninger du kan bruge og tilpasse:</p><span class=\"phrase\">\"Så er det tid til [ret] — lavet af [navn]. Værsgo, spis og nyd det!\"</span><span class=\"phrase\">\"Grillen er varm, og der kommer mere om et øjeblik.\"</span><span class=\"phrase\">\"Husk at gemme plads — der kommer dessert lidt senere.\"</span>" },
+        { title:"Hold styr på tiden", body:
+          "<ul><li>Brug Timer-fanen til at holde øje med, hvor lang tid hver ret skal have på grillen eller i ovnen.</li><li>Aftal med grillmesteren, hvordan I giver hinanden besked, hvis noget bliver forsinket.</li><li>Byg lidt luft ind i planen — grillmad rammer sjældent klokkeslættet på minuttet.</li></ul>" },
+        { title:"Håndter det uventede", body:
+          "<ul><li><b>Vejret skifter:</b> hav en plan for, hvor I rykker ind, og giv gæsterne besked i god tid.</li><li><b>Grillen driller eller maden er forsinket:</b> sæt snacks eller drikkevarer frem, mens I venter.</li><li><b>Programmet skrider:</b> prioriter stemningen — ingen bemærker et kvarters forsinkelse på en afslappet grillfest.</li></ul>" },
+        { title:"Afrunding", body:
+          "<ul><li>Tak dem, der har lavet mad eller passet grillen.</li><li>Giv besked, når I skifter til dessert, kaffe eller lege.</li><li>Nyd resten af festen!</li></ul>" }
+      ]
+    },
+
+    fodselsdag: {
+      label: "Fødselsdag",
+      programTitle: "Festens program",
+      namesLabel: "Fødselsdagsbarnets navn",
+      namesPlaceholder: "Fx Anna",
+      namesSummaryDefault: "Fødselsdagsbarn & starttidspunkt",
+      statLabel: "Indslag",
+      addFormTitle: "Tilføj taler/indslag til programmet",
+      addButtonText: "Tilføj til programmet",
+      nameLabel: "Navn/indslag",
+      namePlaceholder: "Fx Tale fra søster, eller Fælles sang",
+      relationLabel: "Hvem",
+      relationPlaceholder: "Fx fødselsdagsbarnets søster",
+      notesPlaceholder: "Fx: skal bruge mikrofon, eller: lige før kagen",
+      emptyHint: "Programmet er tomt endnu.<br>Tilføj det første indslag ovenfor.",
+      timerSelectLabel: "Vælg indslag",
+      nextButtonText: "Gå til næste indslag i programmet →",
+      guideSections: [
+        { title:"Hvad laver en toastmaster til en fødselsdag?", body:
+          "<p>Din opgave er at binde festen sammen: byde velkommen, introducere taler og indslag i den rigtige rækkefølge, holde styr på, hvornår kagen skal skæres, og sørge for at overgange mellem mad, taler og lege glider let.</p>" },
+        { title:"Inden festen", body:
+          "<ul><li>Aftal med familien hvem der skal tale eller lave et indslag, og i hvilken rækkefølge.</li><li>Kontakt talerne i god tid, og bed om et estimat på, hvor lang tid de forventer at bruge.</li><li>Aftal, hvornår kagen skal bæres ind, og om der skal synges.</li><li>Tjek om der er brug for mikrofon eller andet udstyr.</li><li>Læg programmet ind under <b>Program</b>-fanen, så du har det samlet på telefonen.</li></ul>" },
+        { title:"Din rolle under festen", body:
+          "<ul><li>Byd velkommen og fortæl kort, hvordan festen kommer til at forløbe.</li><li>Introducer hver taler eller hvert indslag roligt og tydeligt.</li><li>Hold øje med tiden med <b>Timer</b>-fanen, uden at det bliver stressende for nogen.</li><li>Giv besked, når det er tid til kage eller gaver.</li></ul>" },
+        { title:"Sådan introducerer du en taler", body:
+          "<p>Nogle sætninger du kan bruge og tilpasse:</p><span class=\"phrase\">\"Nu er der en, der gerne vil sige et par ord — værsgo, [navn].\"</span><span class=\"phrase\">\"Tak for de fine ord! Skål for [fødselsdagsbarnet]!\"</span><span class=\"phrase\">\"Så er der plads til det næste indslag.\"</span>" },
+        { title:"Hold styr på tiden", body:
+          "<ul><li>Brug Timer-fanen til hvert indslag, så du har et roligt overblik.</li><li>Byg lidt luft ind i programmet — taler og lege løber ofte lidt over.</li></ul>" },
+        { title:"Håndter det uventede", body:
+          "<ul><li><b>En taler bliver nervøs:</b> giv dem tid, og vær klar med et roligt \"skål for det\", hvis det er nødvendigt.</li><li><b>Programmet skrider:</b> prioriter stemningen frem for at ramme klokkeslættet på minuttet.</li></ul>" },
+        { title:"Afrunding", body:
+          "<ul><li>Rund festen af med en kort tak til fødselsdagsbarnet.</li><li>Giv besked, når den formelle del er slut, og festen fortsætter uformelt.</li></ul>" }
+      ]
+    },
+
+    firmafest: {
+      label: "Firmafest",
+      programTitle: "Aftenens program",
+      namesLabel: "Firma/afdeling",
+      namesPlaceholder: "Fx Salgsafdelingen",
+      namesSummaryDefault: "Firma & starttidspunkt",
+      statLabel: "Punkter",
+      addFormTitle: "Tilføj programpunkt",
+      addButtonText: "Tilføj til programmet",
+      nameLabel: "Programpunkt",
+      namePlaceholder: "Fx Prisuddeling, eller CEO-tale",
+      relationLabel: "Ansvarlig",
+      relationPlaceholder: "Fx HR-afdelingen",
+      notesPlaceholder: "Fx: kræver projektor",
+      emptyHint: "Programmet er tomt endnu.<br>Tilføj det første punkt ovenfor.",
+      timerSelectLabel: "Vælg programpunkt",
+      nextButtonText: "Gå til næste punkt i programmet →",
+      guideSections: [
+        { title:"Hvad laver en konferencier til en firmafest?", body:
+          "<p>Din opgave er at styre aftenens officielle del: byde velkommen på ledelsens vegne, introducere talere og prisuddelinger, holde tiden, og sørge for at overgangen til den uformelle del af festen sker på et naturligt tidspunkt.</p>" },
+        { title:"Inden festen", body:
+          "<ul><li>Aftal programmet med ledelsen: hvem skal tale, hvornår, og hvor lang tid har de?</li><li>Få styr på eventuelle prisuddelinger eller jubilæer, der skal fejres.</li><li>Tjek scene, mikrofon og AV-udstyr i god tid.</li><li>Læg hele programmet ind under <b>Program</b>-fanen.</li></ul>" },
+        { title:"Din rolle under festen", body:
+          "<ul><li>Byd velkommen og fortæl kort om aftenens program.</li><li>Introducer hver taler eller hvert punkt tydeligt og professionelt.</li><li>Hold øje med tiden med <b>Timer</b>-fanen.</li><li>Giv et klart signal, når den formelle del er slut, og festen fortsætter.</li></ul>" },
+        { title:"Sådan introducerer du et punkt", body:
+          "<p>Nogle sætninger du kan bruge og tilpasse:</p><span class=\"phrase\">\"Så er det tid til aftenens næste punkt. Jeg giver ordet til [navn].\"</span><span class=\"phrase\">\"Tak for de ord — lad os give en hånd.\"</span><span class=\"phrase\">\"Vi fortsætter programmet med [punkt].\"</span>" },
+        { title:"Hold styr på tiden", body:
+          "<ul><li>Firmafester har ofte et stramt program — brug Timer-fanen aktivt for at holde tempoet.</li><li>Aftal på forhånd med talere, hvordan du diskret giver besked, hvis de nærmer sig tidsgrænsen.</li></ul>" },
+        { title:"Håndter det uventede", body:
+          "<ul><li><b>Teknikken driller:</b> hav en plan B, og øv dig i at tale uden mikrofon om nødvendigt.</li><li><b>Programmet skrider:</b> prioriter de vigtigste punkter, og skær eventuelt i det mindre vigtige.</li></ul>" },
+        { title:"Afrunding", body:
+          "<ul><li>Rund den formelle del af med en kort opsummering og tak til alle.</li><li>Giv besked til DJ eller musikansvarlig, så overgangen til resten af festen er tydelig.</li></ul>" }
+      ]
+    }
+
+  };
+
   /* ---------------- tabs ---------------- */
   var tabButtons = document.querySelectorAll(".tabbar button");
   var panels = { guide: document.getElementById("tab-guide"), plan: document.getElementById("tab-plan"), timer: document.getElementById("tab-timer") };
+  function setScrollLock(name){
+    var lock = (name === "timer");
+    document.documentElement.classList.toggle("lock-scroll", lock);
+    document.body.classList.toggle("lock-scroll", lock);
+  }
   tabButtons.forEach(function(btn){
     btn.addEventListener("click", function(){
       tabButtons.forEach(function(b){ b.classList.remove("active"); });
       btn.classList.add("active");
       Object.keys(panels).forEach(function(k){ panels[k].classList.remove("active"); });
       panels[btn.dataset.tab].classList.add("active");
+      setScrollLock(btn.dataset.tab);
       if(btn.dataset.tab === "timer") refreshTimerSelect();
     });
   });
   function goToTab(name){
     tabButtons.forEach(function(b){ b.classList.toggle("active", b.dataset.tab===name); });
     Object.keys(panels).forEach(function(k){ panels[k].classList.toggle("active", k===name); });
+    setScrollLock(name);
   }
 
   /* ---------------- event fields ---------------- */
@@ -565,11 +665,66 @@
   fEventStart.addEventListener("change", function(){ state.event.start = fEventStart.value; saveState(); renderPlanner(); });
 
   function updateHeaderTitle(){
+    var cfg = currentConfig();
     var t = document.getElementById("eventSummaryText");
-    if(t) t.textContent = state.event.names ? state.event.names : "Brudepar & starttidspunkt";
+    if(t) t.textContent = state.event.names ? state.event.names : cfg.namesSummaryDefault;
     document.title = state.event.names ? state.event.names + " – Toastmaster" : "Toastmaster";
   }
   updateHeaderTitle();
+
+  /* ---------------- event type ---------------- */
+  var fEventType = document.getElementById("fEventType");
+  Object.keys(EVENT_TYPES).forEach(function(key){
+    var opt = document.createElement("option");
+    opt.value = key;
+    opt.textContent = EVENT_TYPES[key].label;
+    fEventType.appendChild(opt);
+  });
+  fEventType.value = state.eventType;
+
+  fEventType.addEventListener("change", function(){
+    state.eventType = fEventType.value;
+    saveState();
+    applyEventType();
+  });
+
+  function currentConfig(){
+    return EVENT_TYPES[state.eventType] || EVENT_TYPES.bryllup;
+  }
+
+  function renderGuide(){
+    var cfg = currentConfig();
+    var container = document.getElementById("guideAccordionContainer");
+    var html = "";
+    cfg.guideSections.forEach(function(sec, idx){
+      html += '<details class="guide-item"'+(idx===0?' open':'')+'>'+
+        '<summary><span class="num">'+(idx+1)+'</span>'+sec.title+'<span class="chev">›</span></summary>'+
+        '<div class="guide-body">'+sec.body+'</div>'+
+      '</details>';
+    });
+    container.innerHTML = html;
+  }
+
+  function applyEventType(){
+    var cfg = currentConfig();
+    document.getElementById("planTitle").textContent = cfg.programTitle;
+    document.getElementById("namesFieldLabel").textContent = cfg.namesLabel;
+    fEventNames.placeholder = cfg.namesPlaceholder;
+    document.getElementById("statLabel").textContent = cfg.statLabel;
+    document.getElementById("addFormTitle").textContent = cfg.addFormTitle;
+    document.getElementById("nameFieldLabel").textContent = cfg.nameLabel;
+    fName.placeholder = cfg.namePlaceholder;
+    document.getElementById("relationFieldLabel").textContent = cfg.relationLabel;
+    fRelation.placeholder = cfg.relationPlaceholder;
+    fNotes.placeholder = cfg.notesPlaceholder;
+    document.getElementById("btnAddSpeech").textContent = cfg.addButtonText;
+    document.getElementById("timerSelectLabel").textContent = cfg.timerSelectLabel;
+    document.getElementById("btnNextSpeaker").textContent = cfg.nextButtonText;
+    updateHeaderTitle();
+    renderGuide();
+    renderPlanner();
+    refreshTimerSelect();
+  }
 
   /* ---------------- planner ---------------- */
   var fName = document.getElementById("fName");
@@ -615,7 +770,7 @@
     var totalMinutes = 0;
 
     if(state.speeches.length === 0){
-      list.innerHTML = '<div class="empty-hint">Programmet er tomt endnu.<br>Tilføj den første taler ovenfor.</div>';
+      list.innerHTML = '<div class="empty-hint">'+currentConfig().emptyHint+'</div>';
     }
 
     state.speeches.forEach(function(sp, idx){
@@ -683,6 +838,14 @@
   var btnReset = document.getElementById("btnReset");
   var liquidRect = document.getElementById("liquidRect");
   var glassOutline = document.getElementById("glassOutline");
+  var fAlertSound = document.getElementById("fAlertSound");
+  var fAlertVibration = document.getElementById("fAlertVibration");
+
+  if(!state.settings) state.settings = { sound:true, vibration:true };
+  fAlertSound.checked = state.settings.sound !== false;
+  fAlertVibration.checked = state.settings.vibration !== false;
+  fAlertSound.addEventListener("change", function(){ state.settings.sound = fAlertSound.checked; saveState(); });
+  fAlertVibration.addEventListener("change", function(){ state.settings.vibration = fAlertVibration.checked; saveState(); });
 
   var timer = {
     totalSeconds: 300,
@@ -710,6 +873,20 @@
       osc.connect(gain); gain.connect(audioCtx.destination);
       osc.start(t0); osc.stop(t0+dur+0.02);
     }catch(e){ /* audio unsupported, ignore */ }
+  }
+  function vibrate(pattern){
+    try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){ /* vibration unsupported, ignore */ }
+  }
+  function triggerAlert(kind){
+    var wantsSound = fAlertSound.checked;
+    var wantsVibration = fAlertVibration.checked;
+    if(kind === "warning"){
+      if(wantsSound){ beep(880, 0.18, 0); beep(880, 0.18, 0.25); }
+      if(wantsVibration) vibrate([120]);
+    } else {
+      if(wantsSound){ beep(660, 0.2, 0); beep(660, 0.2, 0.28); beep(440, 0.3, 0.56); }
+      if(wantsVibration) vibrate([200,100,200,100,200]);
+    }
   }
 
   function refreshTimerSelect(){
@@ -761,6 +938,7 @@
     timer.warned = false;
     timer.finished = false;
     timerLabel.textContent = label;
+    timerLabel.classList.remove("overtime");
     btnStartPause.textContent = "Start";
     btnStartPause.classList.remove("btn-pause");
     btnStartPause.classList.add("btn-start");
@@ -768,22 +946,20 @@
   }
 
   function updateTimerDisplay(){
-    var r = timer.remaining;
-    var overtime = r < 0;
-    var abs = Math.abs(r);
-    var mm = Math.floor(abs/60), ss = abs%60;
+    var wholeSeconds = Math.max(0, Math.round(timer.remaining));
+    var mm = Math.floor(wholeSeconds/60), ss = wholeSeconds%60;
     var text = (mm<10?"0":"")+mm+":"+(ss<10?"0":"")+ss;
-    timerReadout.textContent = overtime ? "+"+text : text;
-    timerReadout.classList.toggle("overtime", overtime);
+    timerReadout.textContent = text;
+    timerReadout.classList.toggle("overtime", timer.finished);
 
-    var pct = overtime ? 0 : Math.max(0, Math.min(1, r / timer.totalSeconds));
+    var pct = Math.max(0, Math.min(1, timer.remaining / timer.totalSeconds));
     var maxH = 68; // matches bowl geometry
     var h = maxH * pct;
     var y = 72 - h;
     liquidRect.setAttribute("y", y);
     liquidRect.setAttribute("height", h);
 
-    if(overtime){
+    if(timer.finished){
       liquidRect.setAttribute("fill", "#8C1F2E");
       glassOutline.setAttribute("stroke", "#8C1F2E");
     } else if(pct <= 0.15){
@@ -799,25 +975,26 @@
     var now = Date.now();
     var elapsedSec = (now - timer.lastTick) / 1000;
     timer.lastTick = now;
+    var prevRemaining = timer.remaining;
     timer.remaining -= elapsedSec;
 
-    if(!timer.warned && timer.remaining <= 30 && timer.remaining > 29 - 1 && timer.totalSeconds > 60){
+    if(!timer.warned && prevRemaining > 30 && timer.remaining <= 30 && timer.totalSeconds > 60){
       timer.warned = true;
-      beep(880, 0.18, 0); beep(880, 0.18, 0.25);
+      triggerAlert("warning");
     }
     if(!timer.finished && timer.remaining <= 0){
       timer.finished = true;
-      beep(660, 0.2, 0); beep(660, 0.2, 0.28); beep(440, 0.3, 0.56);
-      if(timer.speechId){
-        var sp = state.speeches.find(function(s){return s.id===timer.speechId;});
-        if(sp && !sp.done){ /* leave marking to the user via checkmark, avoid surprising auto-changes */ }
-      }
+      timer.remaining = 0;
+      stopTicking();
+      timerLabel.textContent = "Tiden er gået — tryk Nulstil for at starte igen";
+      timerLabel.classList.add("overtime");
+      triggerAlert("finish");
     }
     updateTimerDisplay();
   }
 
   function startTicking(){
-    if(timer.intervalId) return;
+    if(timer.intervalId || timer.finished) return;
     timer.running = true;
     timer.lastTick = Date.now();
     timer.intervalId = setInterval(tick, 250);
@@ -841,6 +1018,14 @@
     timer.remaining = timer.totalSeconds;
     timer.warned = false;
     timer.finished = false;
+    var val = timerSelect.value;
+    if(val && val.indexOf("free-")===0){
+      timerLabel.textContent = "Fri timer";
+    } else {
+      var sp = state.speeches.find(function(s){return s.id===timer.speechId;});
+      timerLabel.textContent = sp ? (sp.name + (sp.relation ? " · "+sp.relation : "")) : "Fri timer";
+    }
+    timerLabel.classList.remove("overtime");
     updateTimerDisplay();
   });
 
@@ -855,8 +1040,7 @@
   });
 
   /* ---------------- init ---------------- */
-  renderPlanner();
-  refreshTimerSelect();
+  applyEventType();
 })();
 </script>
 </body>
